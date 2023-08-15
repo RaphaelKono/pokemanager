@@ -29,5 +29,10 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  // This is a solution for: Using Cypress with Typescript in Angular application causes type conflict between Mocha/Chai and Jasmine
+  // https://github.com/cypress-io/cypress/issues/7552
+  // comment #1087 or by M-jerez on Oct27,2020
+  "include": ["src", "node_modules/cypress"],
+  "exclude": ["node_modules/cypress"]
 }

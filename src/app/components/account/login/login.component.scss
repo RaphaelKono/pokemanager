@@ -1,0 +1,27 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4rem;
+}
+
+.form-card {
+    max-width: 320px;
+}
+
+mat-form-field {
+    button {
+        background-color: transparent;
+        border: none;
+        padding: unset;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+mat-icon {
+    img {
+        width: 24px;
+    }
+}
