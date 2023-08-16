@@ -25,4 +25,8 @@ export class LoginComponent {
       this.loginForm.value.password!
     );
   }
+
+  switchVisibility() {
+    this.hide = !this.hide;
+  }
 }
