@@ -15,6 +15,14 @@ import { MatButtonModule } from '@angular/material/button';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  const emailValidationTests = [
+    {value: null, valid: false},
+    {value: '', valid: false},
+    {value: 'user', valid: false},
+    {value: 'user.com', valid: false},
+    {value: 'user@mail', valid: false},
+    {value: 'user@mail.com', valid: true},
+  ]
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -51,4 +59,14 @@ describe('LoginComponent', () => {
     component.switchVisibility();
     expect(component.hide).toBe(true);
   });
+
+  emailValidationTests.forEach(test => {
+    it(`should validate the email address ${test.value}`, () => {
+      const emailControl = component.loginForm.get('email');
+      emailControl?.patchValue(test.value);
+      fixture.detectChanges();
+      expect(emailControl?.valid).toBe(test.valid);
+    })
+  })
+  
 });

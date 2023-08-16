@@ -1,4 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
 import {
   Auth,
   UserCredential,
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
   uid?: string;
+  errorCode?: string;
 
   constructor(
     private auth: Auth,
@@ -20,17 +22,18 @@ export class AuthService {
 
   login(email: string, password: string) {
     signInWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => this.setCorrectLogin(userCredential))
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+      .then((userCredential) => this.setLoginPass(userCredential))
+      .catch((error) => this.setLoginError(error));
   }
 
-  setCorrectLogin(userCredential: UserCredential) {
+  setLoginPass(userCredential: UserCredential) {
     this.uid = userCredential.user.uid;
     this.router.navigate(['/client']);
+  }
+
+  setLoginError(error: FirebaseError){
+    this.errorCode = error.code;
+    console.log(this.errorCode);
   }
 
   isLoggedIn() {

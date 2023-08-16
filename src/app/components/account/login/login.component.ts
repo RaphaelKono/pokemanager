@@ -9,14 +9,15 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class LoginComponent {
   hide: boolean = true;
-
+  //RFC2822 Email Validation
+  validMail: RegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g; 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.pattern(this.validMail)]),
     password: new FormControl('', Validators.required),
     rememberMe: new FormControl(false),
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   login() {
     if (this.loginForm.invalid) return;
