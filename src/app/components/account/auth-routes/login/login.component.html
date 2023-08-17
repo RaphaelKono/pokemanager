@@ -1,0 +1,16 @@
+<mat-card-header>
+    <mat-card-title>Login</mat-card-title>
+</mat-card-header>
+<mat-card-content>
+    <form [formGroup]="loginForm">
+        <p>
+            <app-mail-form (refreshFormEvent)="refreshForm($event)" [parentGroup]="loginForm"></app-mail-form>
+        </p>
+        <p>
+            <app-password-form (refreshFormEvent)="refreshForm($event)" [parentGroup]="loginForm" [fcName]="'password'"></app-password-form>
+        </p>
+        <button type="submit" mat-flat-button color="primary" (click)="login()" [attr.data-testid]="'submitLoginForm'">Log in</button>
+    </form>
+    <a href="">Forgot password?</a>
+    <p>Don't have an account? <a [routerLink]="'/auth/signup'">Sign Up</a></p>
+</mat-card-content>

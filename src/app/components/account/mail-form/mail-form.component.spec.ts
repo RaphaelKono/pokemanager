@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { LoginComponent } from '../login/login.component';
+import { LoginComponent } from '../auth-routes/login/login.component';
 import { inject } from '@angular/core';
 import { SharedFormService } from 'src/app/services/shared-form/shared-form.service';
 
@@ -39,7 +39,7 @@ describe('MailFormComponent', () => {
     component.parentGroup = new FormGroup({
       email: sharedFormService.sharedMailFormControl(),
       password: sharedFormService.sharedPasswordFormControl()
-    })
+    });
     fixture.detectChanges();
   });
 

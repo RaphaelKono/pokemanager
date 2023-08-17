@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SharedFormService } from 'src/app/services/shared-form/shared-form.service';
 
@@ -13,18 +9,18 @@ import { SharedFormService } from 'src/app/services/shared-form/shared-form.serv
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  hide: boolean = true;
   loginForm!: FormGroup;
 
-  constructor(public authService: AuthService, private sharedFormService: SharedFormService) {
-    
-  }
+  constructor(
+    public authService: AuthService,
+    private sharedFormService: SharedFormService
+  ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
       email: this.sharedFormService.sharedMailFormControl(),
-      password: this.sharedFormService.sharedPasswordFormControl()
-    })
+      password: this.sharedFormService.sharedPasswordFormControl(),
+    });
   }
 
   login() {
@@ -35,19 +31,19 @@ export class LoginComponent {
     );
   }
 
-  onSubmitMail($event: FormControl){
-    this.loginForm.controls['email'] = $event;
-    console.log(this.loginForm);
-  }
-
-  onSubmitPassword($event: FormControl){
-    this.loginForm.controls['password'] = $event;
-    console.log(this.loginForm);
-
-  }
-
-  onSubmitForm($event: FormGroup){
+  refreshForm($event: FormGroup) {
     this.loginForm = $event;
     console.log(this.loginForm);
   }
+
+  // onSubmitMail($event: FormControl){
+  //   this.loginForm.controls['email'] = $event;
+  //   console.log(this.loginForm);
+  // }
+
+  // onSubmitPassword($event: FormControl){
+  //   this.loginForm.controls['password'] = $event;
+  //   console.log(this.loginForm);
+
+  // }
 }

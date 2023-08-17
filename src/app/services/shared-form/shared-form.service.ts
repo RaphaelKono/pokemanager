@@ -5,6 +5,7 @@ import { FormControl, Validators } from '@angular/forms';
   providedIn: 'root',
 })
 export class SharedFormService {
+  strong = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,64}/;
   constructor() {}
 
   sharedMailFormControl(): FormControl {
@@ -12,6 +13,6 @@ export class SharedFormService {
   }
 
   sharedPasswordFormControl(): FormControl {
-    return new FormControl('', [Validators.required]);
+    return new FormControl('', [Validators.required, Validators.pattern(this.strong)]);
   }
 }

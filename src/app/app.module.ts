@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/account/login/login.component';
+import { LoginComponent } from './components/account/auth-routes/login/login.component';
 
 // Material Modules
 import { MatCardModule } from '@angular/material/card';
@@ -28,9 +28,11 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { ClientComponent } from './components/client/client.component';
 import { MailFormComponent } from './components/account/mail-form/mail-form.component';
 import { PasswordFormComponent } from './components/account/password-form/password-form.component';
+import { AuthRoutesComponent } from './components/account/auth-routes/auth-routes.component';
+import { SignUpComponent } from './components/account/auth-routes/sign-up/sign-up.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ClientComponent, MailFormComponent, PasswordFormComponent],
+  declarations: [AppComponent, LoginComponent, ClientComponent, MailFormComponent, PasswordFormComponent, AuthRoutesComponent, SignUpComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

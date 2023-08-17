@@ -1,32 +1,31 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { SharedFormService } from 'src/app/services/shared-form/shared-form.service';
 
 @Component({
   selector: 'app-password-form',
   templateUrl: './password-form.component.html',
-  styleUrls: ['./password-form.component.scss']
+  styleUrls: ['../auth-routes/auth-routes.component.scss'],
 })
 export class PasswordFormComponent {
   hide = true;
 
   @Input() parentGroup!: FormGroup;
-  @Output() loginFormEvent: EventEmitter<FormGroup> = new EventEmitter;
-  password!: FormControl
+  @Input() fcName!: string;
+  @Output() refreshFormEvent: EventEmitter<FormGroup> = new EventEmitter();
+  password!: FormControl;
 
-  constructor(public authService: AuthService, private sharedFormService: SharedFormService){}
+  constructor(public authService: AuthService) {}
 
-  ngOnInit(){
-    this.password = this.sharedFormService.sharedPasswordFormControl();
-  }
-
-  emitEvent(){
-    this.loginFormEvent.emit(this.parentGroup);
+  emitEvent() {
+    this.refreshFormEvent.emit(this.parentGroup);
   }
 
   switchVisibility() {
     this.hide = !this.hide;
   }
 
+  noPw(){
+    return this.parentGroup.value.fcName === null || this.parentGroup.value.fcName === '';
+  }
 }
