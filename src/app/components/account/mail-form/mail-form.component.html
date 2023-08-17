@@ -1,0 +1,13 @@
+<div>
+    <p [formGroup]="parentGroup">
+        <mat-form-field appearance="outline">
+            <mat-label>E-mail</mat-label>
+            <input matInput placeholder="E-mail" formControlName="email" [attr.data-testid]="'email'" (input)="emitEvent()">
+            <mat-icon matSuffix>
+                <img src="assets/svg/mail.svg">
+            </mat-icon>
+            <mat-hint *ngIf="authService.errorCode === 'auth/user-not-found'" class="firebase-error">User not found</mat-hint>
+            <mat-error *ngIf="authService.errorCode === 'auth/user-not-found'">User not found</mat-error>
+        </mat-form-field>
+    </p>
+</div>

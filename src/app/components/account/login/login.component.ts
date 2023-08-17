@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+} from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { SharedFormService } from 'src/app/services/shared-form/shared-form.service';
 
 @Component({
   selector: 'app-login',
@@ -9,15 +14,18 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class LoginComponent {
   hide: boolean = true;
-  //RFC2822 Email Validation
-  validMail: RegExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g; 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.pattern(this.validMail)]),
-    password: new FormControl('', Validators.required),
-    rememberMe: new FormControl(false),
-  });
+  loginForm!: FormGroup;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private sharedFormService: SharedFormService) {
+    
+  }
+
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      email: this.sharedFormService.sharedMailFormControl(),
+      password: this.sharedFormService.sharedPasswordFormControl()
+    })
+  }
 
   login() {
     if (this.loginForm.invalid) return;
@@ -27,7 +35,19 @@ export class LoginComponent {
     );
   }
 
-  switchVisibility() {
-    this.hide = !this.hide;
+  onSubmitMail($event: FormControl){
+    this.loginForm.controls['email'] = $event;
+    console.log(this.loginForm);
+  }
+
+  onSubmitPassword($event: FormControl){
+    this.loginForm.controls['password'] = $event;
+    console.log(this.loginForm);
+
+  }
+
+  onSubmitForm($event: FormGroup){
+    this.loginForm = $event;
+    console.log(this.loginForm);
   }
 }

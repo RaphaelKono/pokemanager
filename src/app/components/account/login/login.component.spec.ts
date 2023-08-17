@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MailFormComponent } from '../mail-form/mail-form.component';
+import { PasswordFormComponent } from '../password-form/password-form.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -20,13 +22,12 @@ describe('LoginComponent', () => {
     {value: '', valid: false},
     {value: 'user', valid: false},
     {value: 'user.com', valid: false},
-    {value: 'user@mail', valid: false},
     {value: 'user@mail.com', valid: true},
   ]
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginComponent],
+      declarations: [LoginComponent, MailFormComponent, PasswordFormComponent],
       imports: [
         ReactiveFormsModule,
         BrowserAnimationsModule,
@@ -46,18 +47,6 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should turn visibility on', () => {
-    component.hide = true;
-    component.switchVisibility();
-    expect(component.hide).toBe(false);
-  });
-
-  it('should turn visibility off', () => {
-    component.hide = false;
-    component.switchVisibility();
-    expect(component.hide).toBe(true);
   });
 
   emailValidationTests.forEach(test => {

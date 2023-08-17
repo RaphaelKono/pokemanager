@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SharedFormService {
-  validMail: RegExp =
-    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+  constructor() {}
 
-  constructor(private fb: FormBuilder) {}
+  sharedMailFormControl(): FormControl {
+    return new FormControl('', [Validators.required, Validators.email]);
+  }
 
-  sharedForm(): FormGroup {
-    const fg = this.fb.group({
-      email: ['', [Validators.required, Validators.pattern(this.validMail)]],
-    });
-    return fg;
+  sharedPasswordFormControl(): FormControl {
+    return new FormControl('', [Validators.required]);
   }
 }

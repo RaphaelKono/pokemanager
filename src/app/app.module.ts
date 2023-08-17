@@ -26,9 +26,11 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { ClientComponent } from './components/client/client.component';
+import { MailFormComponent } from './components/account/mail-form/mail-form.component';
+import { PasswordFormComponent } from './components/account/password-form/password-form.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ClientComponent],
+  declarations: [AppComponent, LoginComponent, ClientComponent, MailFormComponent, PasswordFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
