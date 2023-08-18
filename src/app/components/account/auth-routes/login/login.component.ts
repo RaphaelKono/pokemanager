@@ -33,7 +33,6 @@ export class LoginComponent {
 
   refreshForm($event: FormGroup) {
     this.loginForm = $event;
-    console.log(this.loginForm);
   }
 
   // onSubmitMail($event: FormControl){

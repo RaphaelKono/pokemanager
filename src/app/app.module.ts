@@ -9,6 +9,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Components
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/account/auth-routes/login/login.component';
+import { ClientComponent } from './components/client/client.component';
+import { MailFormComponent } from './components/account/mail-form/mail-form.component';
+import { PasswordFormComponent } from './components/account/password-form/password-form.component';
+import { AuthRoutesComponent } from './components/account/auth-routes/auth-routes.component';
+import { SignUpComponent } from './components/account/auth-routes/sign-up/sign-up.component';
 
 // Material Modules
 import { MatCardModule } from '@angular/material/card';
@@ -16,23 +21,21 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 import { environment } from '../environments/environment';
 
 //Firebase
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { ClientComponent } from './components/client/client.component';
-import { MailFormComponent } from './components/account/mail-form/mail-form.component';
-import { PasswordFormComponent } from './components/account/password-form/password-form.component';
-import { AuthRoutesComponent } from './components/account/auth-routes/auth-routes.component';
-import { SignUpComponent } from './components/account/auth-routes/sign-up/sign-up.component';
+import { DialogPwInfoComponent } from './components/account/dialogs/dialog-pw-info/dialog-pw-info.component';
+
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ClientComponent, MailFormComponent, PasswordFormComponent, AuthRoutesComponent, SignUpComponent],
+  declarations: [AppComponent, LoginComponent, ClientComponent, MailFormComponent, PasswordFormComponent, AuthRoutesComponent, SignUpComponent, DialogPwInfoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -43,6 +46,7 @@ import { SignUpComponent } from './components/account/auth-routes/sign-up/sign-u
     MatInputModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideDatabase(() => getDatabase()),

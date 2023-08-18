@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Strong password</h1>
+<div mat-dialog-content>
+    A strong password contains:
+    <ul>
+        <li>
+            <span *ngIf="!tooShort()">&#10003;</span> at least eight characters.
+        </li>
+        <li>
+            <span *ngIf="containsSmallLetter()">&#10003;</span> at least one small letter.
+        </li>
+        <li>
+            <span *ngIf="containsCapitalLetter()">&#10003;</span> at least one capital letter.
+        </li>
+        <li>
+            <span *ngIf="containsNumber()">&#10003;</span> at least one number.
+        </li>
+        <li>
+            <span *ngIf="containsSpecialSign()">&#10003;</span> at least one special sign.
+        </li>
+    </ul>
+</div>

@@ -29,3 +29,16 @@ mat-icon {
 .firebase-error {
     color: red;
 }
+
+mat-error {
+    button {
+        color: red;
+        text-decoration: underline;
+    }
+}
+
+mat-hint {
+    button {
+        text-decoration: underline;
+    }
+}

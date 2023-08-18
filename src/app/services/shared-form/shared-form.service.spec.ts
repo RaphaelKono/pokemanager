@@ -12,6 +12,16 @@ describe('SharedFormService', () => {
     { value: 'user@mail.com', valid: true },
   ];
 
+  const passwordValidationTests = [
+    { value: null, valid: false },
+    { value: '', valid: false },
+    { value: 'asdf', valid: false },
+    { value: 'asdf1', valid: false },
+    { value: 'asdF1', valid: false },
+    { value: 'asdF1!', valid: false },
+    { value: 'asdFgh1!', valid: true },
+  ];
+
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(SharedFormService);
@@ -26,6 +36,14 @@ describe('SharedFormService', () => {
       const emailControl = service.sharedMailFormControl();
       emailControl?.patchValue(test.value);
       expect(emailControl?.valid).toBe(test.valid);
+    });
+  });
+
+  passwordValidationTests.forEach((test) => {
+    it(`should validate the password ${test.value}`, () => {
+      const passwordControl = service.sharedPasswordFormControl();
+      passwordControl?.patchValue(test.value);
+      expect(passwordControl?.valid).toBe(test.valid);
     });
   });
 });

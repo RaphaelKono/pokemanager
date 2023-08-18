@@ -10,6 +10,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { SharedFormService } from 'src/app/services/shared-form/shared-form.service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 describe('PasswordFormComponent', () => {
   let component: PasswordFormComponent;
@@ -24,9 +25,10 @@ describe('PasswordFormComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
+        MatDialogModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
-      ],
+      ]
     });
     fixture = TestBed.createComponent(PasswordFormComponent);
     component = fixture.componentInstance;

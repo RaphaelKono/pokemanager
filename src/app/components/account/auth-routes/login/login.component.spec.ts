@@ -18,6 +18,7 @@ import {
   RouterModule,
   convertToParamMap,
 } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -47,6 +48,7 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatButtonModule,
         RouterModule,
+        MatDialogModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
       ],

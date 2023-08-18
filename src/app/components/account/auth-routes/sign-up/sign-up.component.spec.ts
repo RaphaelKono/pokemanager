@@ -18,6 +18,7 @@ import {
   RouterModule,
   convertToParamMap,
 } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 describe('SignUpComponent', () => {
   let component: SignUpComponent;
@@ -40,10 +41,11 @@ describe('SignUpComponent', () => {
         MatIconModule,
         MatButtonModule,
         RouterModule,
+        MatDialogModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
       ],
-      providers: [{ provide: ActivatedRoute, useValue: mockActivatedRoute }],
+      providers: [{ provide: ActivatedRoute, useValue: mockActivatedRoute },MatDialog],
     });
     fixture = TestBed.createComponent(SignUpComponent);
     component = fixture.componentInstance;

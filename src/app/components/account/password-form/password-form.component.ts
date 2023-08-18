@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogPwInfoComponent } from '../dialogs/dialog-pw-info/dialog-pw-info.component';
 
 @Component({
   selector: 'app-password-form',
@@ -15,7 +17,7 @@ export class PasswordFormComponent {
   @Output() refreshFormEvent: EventEmitter<FormGroup> = new EventEmitter();
   password!: FormControl;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, public dialog: MatDialog) {}
 
   emitEvent() {
     this.refreshFormEvent.emit(this.parentGroup);
@@ -25,7 +27,18 @@ export class PasswordFormComponent {
     this.hide = !this.hide;
   }
 
-  noPw(){
-    return this.parentGroup.value.fcName === null || this.parentGroup.value.fcName === '';
+  openDialog() {
+    this.dialog.open(DialogPwInfoComponent, {
+      data: {
+        password: this.parentGroup.value[`${this.fcName}`],
+      },
+    });
+  }
+
+  noPw() {
+    return (
+      this.parentGroup.value[`${this.fcName}`] === null ||
+      this.parentGroup.value[`${this.fcName}`] === ''
+    );
   }
 }
