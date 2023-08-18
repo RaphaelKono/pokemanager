@@ -9,8 +9,8 @@
         <p>
             <app-password-form (refreshFormEvent)="refreshForm($event)" [parentGroup]="loginForm" [fcName]="'password'"></app-password-form>
         </p>
-        <button type="submit" mat-flat-button color="primary" (click)="login()" [attr.data-testid]="'submitLoginForm'">Log in</button>
+        <button type="submit" mat-flat-button color="primary" (click)="login()" [attr.data-testid]="'submitLoginForm'" class="btn-submit">Log in</button>
     </form>
-    <a href="">Forgot password?</a>
+    <a>Forgot password?</a>
     <p>Don't have an account? <a [routerLink]="'/auth/signup'">Sign Up</a></p>
 </mat-card-content>

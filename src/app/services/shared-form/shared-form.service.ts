@@ -13,6 +13,13 @@ export class SharedFormService {
   }
 
   sharedPasswordFormControl(): FormControl {
-    return new FormControl('', [Validators.required, Validators.pattern(this.strong)]);
+    return new FormControl('', [
+      Validators.required,
+      Validators.pattern(this.strong),
+    ]);
+  }
+
+  sharedConfirmedPasswordFormControl(): FormControl {
+    return new FormControl('', [Validators.required]);
   }
 }

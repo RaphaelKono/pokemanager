@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogPwInfoComponent } from '../dialogs/dialog-pw-info/dialog-pw-info.component';
+import { SharedFormService } from 'src/app/services/shared-form/shared-form.service';
 
 @Component({
   selector: 'app-password-form',
@@ -17,7 +18,7 @@ export class PasswordFormComponent {
   @Output() refreshFormEvent: EventEmitter<FormGroup> = new EventEmitter();
   password!: FormControl;
 
-  constructor(public authService: AuthService, public dialog: MatDialog) {}
+  constructor(public authService: AuthService, public dialog: MatDialog, private sharedFormService: SharedFormService) {}
 
   emitEvent() {
     this.refreshFormEvent.emit(this.parentGroup);
@@ -37,8 +38,13 @@ export class PasswordFormComponent {
 
   noPw() {
     return (
+      this.fcName === 'password1' &&
       this.parentGroup.value[`${this.fcName}`] === null ||
       this.parentGroup.value[`${this.fcName}`] === ''
     );
+  }
+
+  noValidPW(){
+    return this.fcName === 'password1' && this.noPw() && !this.sharedFormService.strong.test(this.parentGroup.value[`${this.fcName}`]);
   }
 }
