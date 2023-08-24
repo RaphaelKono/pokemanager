@@ -12,5 +12,5 @@
         <button type="submit" mat-flat-button color="primary" (click)="login()" [attr.data-testid]="'submitLoginForm'" class="btn-submit">Log in</button>
     </form>
     <a>Forgot password?</a>
-    <p>Don't have an account? <a [routerLink]="'/auth/signup'">Sign Up</a></p>
+    <p>Don't have an account? <a [routerLink]="'/auth/signup'" [attr.data-testid]="'routeToSignUp'">Sign Up</a></p>
 </mat-card-content>

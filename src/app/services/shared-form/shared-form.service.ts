@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -22,4 +29,26 @@ export class SharedFormService {
   sharedConfirmedPasswordFormControl(): FormControl {
     return new FormControl('', [Validators.required]);
   }
+
+  sharedSignUpFormGroup(): FormGroup {
+    return new FormGroup(
+      {
+        email: this.sharedMailFormControl(),
+        password1: this.sharedPasswordFormControl(),
+        password2: this.sharedPasswordFormControl(),
+      },
+      { validators: this.passwordConfirming }
+    );
+  }
+
+  passwordConfirming: ValidatorFn = (
+    control: AbstractControl
+  ): ValidationErrors | null => {
+    const password1 = control.get('password1');
+    const password2 = control.get('password2');
+    if (password1 && password2 && password1.value !== password2.value) {
+      return { invalid: true, valid: false };
+    }
+    return null;
+  };
 }

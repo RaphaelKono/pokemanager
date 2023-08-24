@@ -3,6 +3,8 @@ import { FirebaseError } from '@angular/fire/app';
 import {
   Auth,
   UserCredential,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
   signInWithEmailAndPassword,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
@@ -13,6 +15,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   uid?: string;
   errorCode?: string;
+  user?: any;
 
   constructor(
     private auth: Auth,
@@ -20,19 +23,19 @@ export class AuthService {
     private router: Router
   ) {}
 
-  login(email: string, password: string) {
-    signInWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => this.setLoginPass(userCredential))
-      .catch((error) => this.setLoginError(error));
+  async login(email: string, password: string) {
+    await signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => this.setLoginPass(userCredential.user.uid))
+      .catch((error) => this.setLoginError(error.code));
   }
 
-  setLoginPass(userCredential: UserCredential) {
-    this.uid = userCredential.user.uid;
+  setLoginPass(uid: string) {
+    this.uid = uid;
     this.router.navigate(['/client']);
   }
 
-  setLoginError(error: FirebaseError){
-    this.errorCode = error.code;
+  setLoginError(errorCode: string) {
+    this.errorCode = errorCode;
     console.log(this.errorCode);
   }
 
@@ -46,6 +49,24 @@ export class AuthService {
         this.uid = this.auth.currentUser?.uid;
         resolve(true);
       });
+    });
+  }
+
+  async signUp(email: string, password: string) {
+    await createUserWithEmailAndPassword(this.auth, email, password)
+      .then((user: UserCredential) => {
+        this.initEmailVerification(user);
+        this.user = user;
+        console.log('User is: ', user);
+      })
+      .catch((error) => {
+        console.log('error', error.code);
+      });
+  }
+
+  async initEmailVerification(user: UserCredential) {
+    await sendEmailVerification(user.user).then(() => {
+      this.router.navigate(['/auth/verification']);
     });
   }
 }

@@ -32,10 +32,11 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { DialogPwInfoComponent } from './components/account/dialogs/dialog-pw-info/dialog-pw-info.component';
+import { VerifyNoteComponent } from './components/account/auth-routes/verify-note/verify-note.component';
 
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ClientComponent, MailFormComponent, PasswordFormComponent, AuthRoutesComponent, SignUpComponent, DialogPwInfoComponent],
+  declarations: [AppComponent, LoginComponent, ClientComponent, MailFormComponent, PasswordFormComponent, AuthRoutesComponent, SignUpComponent, DialogPwInfoComponent, VerifyNoteComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

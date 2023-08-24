@@ -46,4 +46,23 @@ describe('SharedFormService', () => {
       expect(passwordControl?.valid).toBe(test.valid);
     });
   });
+
+  it('should validate with equal passwords', () => {
+    const passwordConfirmationGroup = service.sharedSignUpFormGroup();
+    passwordConfirmationGroup.controls['email'].patchValue('user@mail.com');
+    passwordConfirmationGroup.controls['password1'].patchValue('asdFgh1!');
+    passwordConfirmationGroup.controls['password2'].patchValue('asdFgh1!');
+    expect(passwordConfirmationGroup.invalid).toBe(false);
+    expect(passwordConfirmationGroup.valid).toBe(true);
+  });
+
+  it('should not validate with different passwords', () => {
+    const passwordConfirmationGroup = service.sharedSignUpFormGroup();
+    passwordConfirmationGroup.controls['email'].patchValue('user@mail.com');
+    passwordConfirmationGroup.controls['password1'].patchValue('asdFgh1!');
+    passwordConfirmationGroup.controls['password2'].patchValue('asdFgh2!');
+    expect(passwordConfirmationGroup.invalid).toBe(true);
+    expect(passwordConfirmationGroup.valid).toBe(false);
+  });
+
 });

@@ -17,39 +17,23 @@ export class SignUpComponent {
   ) {}
 
   ngOnInit() {
-    this.signUpForm = new FormGroup(
-      {
-        email: this.sharedFormService.sharedMailFormControl(),
-        password1: this.sharedFormService.sharedPasswordFormControl(),
-        password2: this.sharedFormService.sharedPasswordFormControl(),
-      },
-      { validators: this.passwordConfirming }
-    );
+    this.signUpForm = this.sharedFormService.sharedSignUpFormGroup();
   }
 
   signUp() {
-    // if (this.signUpForm.invalid) return;
-    // this.authService.signUp(
-    //   this.signUpForm.value.email!,
-    //   this.signUpForm.value.password!
-    // );
+    if (this.signUpForm.invalid) return;
+    this.authService.signUp(
+      this.signUpForm.value.email!,
+      this.signUpForm.value.password1!
+    );
     console.log('Email: ', this.signUpForm.value.email);
     console.log('Password1: ', this.signUpForm.value.password1);
     console.log('Password2: ', this.signUpForm.value.password2);
-    console.log(this.signUpForm.valid)
+    console.log('Form is valid: ', this.signUpForm.valid);
   }
 
   refreshForm($event: FormGroup) {
     this.signUpForm = $event;
   }
 
-  passwordConfirming: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const password1 = control.get('password1');
-    const password2 = control.get('password2');
-    console.log(password1!.value,' und ', password2!.value);
-    if (password1 && password2 && password1.value !== password2.value) {
-      return { invalid: true, valid: false };
-    }
-    return null;
-  };
 }
