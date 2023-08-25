@@ -2,8 +2,10 @@ import { Injectable, NgZone } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import {
   Auth,
+  User,
   UserCredential,
   createUserWithEmailAndPassword,
+  getAuth,
   sendEmailVerification,
   signInWithEmailAndPassword,
 } from '@angular/fire/auth';
@@ -15,7 +17,6 @@ import { Router } from '@angular/router';
 export class AuthService {
   uid?: string;
   errorCode?: string;
-  user?: any;
 
   constructor(
     private auth: Auth,
@@ -32,6 +33,10 @@ export class AuthService {
   setLoginPass(uid: string) {
     this.uid = uid;
     this.router.navigate(['/client']);
+    // this.auth = getAuth();
+    // if (this.auth && this.auth.currentUser) this.user = this.auth.currentUser!;
+    // console.log('user is ', this.user);
+    // console.log(this.auth);
   }
 
   setLoginError(errorCode: string) {
@@ -54,19 +59,26 @@ export class AuthService {
 
   async signUp(email: string, password: string) {
     await createUserWithEmailAndPassword(this.auth, email, password)
-      .then((user: UserCredential) => {
-        this.initEmailVerification(user);
-        this.user = user;
-        console.log('User is: ', user);
-      })
-      .catch((error) => {
-        console.log('error', error.code);
-      });
+      .then((user: UserCredential) => this.setSignUpPass(user))
+      .catch((error) => this.setSignUpError(error.code));
+  }
+
+  setSignUpPass(user: UserCredential) {
+    this.initEmailVerification(user);
+  }
+
+  setSignUpError(errorCode: string) {
+    console.log('error', errorCode);
+    this.errorCode = errorCode;
   }
 
   async initEmailVerification(user: UserCredential) {
     await sendEmailVerification(user.user).then(() => {
       this.router.navigate(['/auth/verification']);
     });
+  }
+
+  resetErrorCode() {
+    this.errorCode = '';
   }
 }

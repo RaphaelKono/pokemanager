@@ -14,5 +14,5 @@
         </p>
         <button type="submit" mat-flat-button color="primary" (click)="signUp()" [attr.data-testid]="'submitSignUpForm'" class="btn-submit">Sign Up</button>
     </form>
-    <p>Have an account? <a [routerLink]="'/auth/login'">Log in</a></p>
+    <p>Have an account? <a [routerLink]="'/auth/login'" [attr.data-testid]="'routeFromSignUpToLogin'">Log in</a></p>
 </mat-card-content>

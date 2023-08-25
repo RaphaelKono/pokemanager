@@ -19,7 +19,9 @@ export class MailFormComponent {
 
   emitEvent(){
     this.refreshFormEvent.emit(this.parentGroup);
+    this.authService.resetErrorCode();
   }
+
 
   noMailAdress(){
     return this.parentGroup.value.email === null || this.parentGroup.value.email === '';
