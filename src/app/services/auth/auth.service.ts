@@ -1,11 +1,8 @@
 import { Injectable, NgZone } from '@angular/core';
-import { FirebaseError } from '@angular/fire/app';
 import {
   Auth,
-  User,
   UserCredential,
   createUserWithEmailAndPassword,
-  getAuth,
   sendEmailVerification,
   signInWithEmailAndPassword,
 } from '@angular/fire/auth';
@@ -26,17 +23,13 @@ export class AuthService {
 
   async login(email: string, password: string) {
     await signInWithEmailAndPassword(this.auth, email, password)
-      .then((userCredential) => this.setLoginPass(userCredential.user.uid))
+      .then((userCredential) => this.setLoginPass(userCredential))
       .catch((error) => this.setLoginError(error.code));
   }
 
-  setLoginPass(uid: string) {
-    this.uid = uid;
+  setLoginPass(userCredential: UserCredential) {
+    this.uid = userCredential.user.uid;
     this.router.navigate(['/client']);
-    // this.auth = getAuth();
-    // if (this.auth && this.auth.currentUser) this.user = this.auth.currentUser!;
-    // console.log('user is ', this.user);
-    // console.log(this.auth);
   }
 
   setLoginError(errorCode: string) {
@@ -48,7 +41,7 @@ export class AuthService {
     return new Promise<boolean>(async (resolve, reject) => {
       this.auth.onAuthStateChanged(async (user) => {
         if (!user) {
-          await this.zone.run(() => this.router.navigate(['/login']));
+          await this.zone.run(() => this.router.navigate(['/auth/login']));
           resolve(false);
         }
         this.uid = this.auth.currentUser?.uid;
