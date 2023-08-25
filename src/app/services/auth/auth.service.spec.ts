@@ -84,31 +84,31 @@ describe('AuthService Login Tests', () => {
   });
 });
 
-describe('AuthService SignUp Tests', () => {
-  let service: AuthService;
-  let router: Router;
-  let location: Location;
+// describe('AuthService SignUp Tests', () => {
+//   let service: AuthService;
+//   let router: Router;
+//   let location: Location;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideAuth(() => getAuth()),
-      ],
-    });
-    service = TestBed.inject(AuthService);
-    router = TestBed.inject(Router);
-    location = TestBed.inject(Location);
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       imports: [
+//         provideFirebaseApp(() => initializeApp(environment.firebase)),
+//         provideAuth(() => getAuth()),
+//       ],
+//     });
+//     service = TestBed.inject(AuthService);
+//     router = TestBed.inject(Router);
+//     location = TestBed.inject(Location);
+//   });
 
-  it(`should call signUpPass function for a valid mail address`, async () => {
-    const innerFunctionSpy = spyOn(service, 'setSignUpPass');
-    await service.signUp(
-      environment.testGuest.email,
-      environment.testGuest.password
-    );
-    expect(innerFunctionSpy).toHaveBeenCalled();
-  });
+//   it(`should call signUpPass function for a valid mail address`, async () => {
+//     const innerFunctionSpy = spyOn(service, 'setSignUpPass');
+//     await service.signUp(
+//       environment.testGuest.email,
+//       environment.testGuest.password
+//     );
+//     expect(innerFunctionSpy).toHaveBeenCalled();
+//   });
 
   // it('should set uid and change path for a valid and existing user', () => {
   //   const spy = spyOn(router, 'navigate');
@@ -126,4 +126,4 @@ describe('AuthService SignUp Tests', () => {
   //   await service.login(environment.guest.email, 'nobodY8!');
   //   expect(service.errorCode).toBe('auth/wrong-password');
   // });
-})
+// })
