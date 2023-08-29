@@ -4,13 +4,13 @@
 <mat-card-content>
     <form [formGroup]="signUpForm">
         <p>
-            <app-mail-form (refreshFormEvent)="refreshForm($event)" [parentGroup]="signUpForm"></app-mail-form>
+            <app-mail-form (refreshFormEvent)="refreshEmail($event)"></app-mail-form>
         </p>
         <p>
-            <app-password-form (refreshFormEvent)="refreshForm($event)" [parentGroup]="signUpForm" [fcName]="'password1'"></app-password-form>
+            <app-password-form (refreshFormEvent)="refreshPassword1($event)" [fcName]="'password1'"></app-password-form>
         </p>
         <p>
-            <app-password-form (refreshFormEvent)="refreshForm($event)" [parentGroup]="signUpForm" [fcName]="'password2'"></app-password-form>
+            <app-password-form (refreshFormEvent)="refreshPassword2($event)" [fcName]="'password2'"></app-password-form>
         </p>
         <button type="submit" mat-flat-button color="primary" (click)="signUp()" [attr.data-testid]="'submitSignUpForm'" class="btn-submit">Sign Up</button>
     </form>

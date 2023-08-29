@@ -35,14 +35,15 @@ export class LoginComponent {
     this.loginForm = $event;
   }
 
-  // onSubmitMail($event: FormControl){
-  //   this.loginForm.controls['email'] = $event;
-  //   console.log(this.loginForm);
-  // }
+  refreshEmail($event: string) {
+    this.loginForm.patchValue({
+      email: $event,
+    });
+  }
 
-  // onSubmitPassword($event: FormControl){
-  //   this.loginForm.controls['password'] = $event;
-  //   console.log(this.loginForm);
-
-  // }
+  refreshPassword($event: string) {
+    this.loginForm.patchValue({
+      password: $event,
+    });
+  }
 }

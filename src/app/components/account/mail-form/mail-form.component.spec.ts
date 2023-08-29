@@ -36,10 +36,10 @@ describe('MailFormComponent', () => {
     fixture = TestBed.createComponent(MailFormComponent);
     component = fixture.componentInstance;
     let sharedFormService = TestBed.inject(SharedFormService);
-    component.parentGroup = new FormGroup({
-      email: sharedFormService.sharedMailFormControl(),
-      password: sharedFormService.sharedPasswordFormControl()
-    });
+    // component.email = new FormGroup({
+    //   email: sharedFormService.sharedMailFormControl(),
+    //   password: sharedFormService.sharedPasswordFormControl()
+    // });
     fixture.detectChanges();
   });
 

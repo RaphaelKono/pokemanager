@@ -13,15 +13,18 @@ import { SharedFormService } from 'src/app/services/shared-form/shared-form.serv
 export class PasswordFormComponent {
   hide = true;
 
-  @Input() parentGroup!: FormGroup;
   @Input() fcName!: string;
-  @Output() refreshFormEvent: EventEmitter<FormGroup> = new EventEmitter();
+  @Output() refreshFormEvent: EventEmitter<string> = new EventEmitter();
   password!: FormControl;
 
   constructor(public authService: AuthService, public dialog: MatDialog, private sharedFormService: SharedFormService) {}
 
+  ngOnInit(){
+    this.password = this.sharedFormService.sharedPasswordFormControl();
+  }
+
   emitEvent() {
-    this.refreshFormEvent.emit(this.parentGroup);
+    this.refreshFormEvent.emit(this.password.value);
   }
 
   switchVisibility() {
@@ -31,7 +34,7 @@ export class PasswordFormComponent {
   openDialog() {
     this.dialog.open(DialogPwInfoComponent, {
       data: {
-        password: this.parentGroup.value[`${this.fcName}`],
+        password: this.password.value,
       },
     });
   }
@@ -39,12 +42,12 @@ export class PasswordFormComponent {
   noPw() {
     return (
       this.fcName === 'password1' &&
-      this.parentGroup.value[`${this.fcName}`] === null ||
-      this.parentGroup.value[`${this.fcName}`] === ''
+      this.password.value === null ||
+      this.password.value === ''
     );
   }
 
   noValidPW(){
-    return this.fcName === 'password1' && this.noPw() && !this.sharedFormService.strong.test(this.parentGroup.value[`${this.fcName}`]);
+    return this.fcName === 'password1' && this.noPw() && !this.sharedFormService.strong.test(this.password.value);
   }
 }

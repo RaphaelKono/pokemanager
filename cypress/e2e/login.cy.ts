@@ -6,4 +6,5 @@ it("should login valid user", () =>{
     cy.get('[data-testid="password"]').type(environment.guest.password);
     cy.get('[data-testid="submitLoginForm"]').click();
     cy.url().should('contain','/client');
+    cy.get('[data-testid="btnSignOut"]').click();
 });

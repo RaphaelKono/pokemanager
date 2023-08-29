@@ -26,14 +26,29 @@ export class SignUpComponent {
       this.signUpForm.value.email!,
       this.signUpForm.value.password1!
     );
-    console.log('Email: ', this.signUpForm.value.email);
-    console.log('Password1: ', this.signUpForm.value.password1);
-    console.log('Password2: ', this.signUpForm.value.password2);
-    console.log('Form is valid: ', this.signUpForm.valid);
   }
 
   refreshForm($event: FormGroup) {
     this.signUpForm = $event;
+    
+  }
+
+  refreshEmail($event: string){
+    this.signUpForm.patchValue({
+      email: $event
+    });
+  }
+
+  refreshPassword1($event: string){
+    this.signUpForm.patchValue({
+      password1: $event
+    });
+  }
+
+  refreshPassword2($event: string){
+    this.signUpForm.patchValue({
+      password2: $event
+    });
   }
 
 }

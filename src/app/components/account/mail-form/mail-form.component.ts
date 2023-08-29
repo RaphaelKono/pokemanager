@@ -1,30 +1,33 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { SharedFormService } from 'src/app/services/shared-form/shared-form.service';
 
 @Component({
   selector: 'app-mail-form',
   templateUrl: './mail-form.component.html',
-  styleUrls: ['../auth-routes/auth-routes.component.scss']
+  styleUrls: ['../auth-routes/auth-routes.component.scss'],
 })
 export class MailFormComponent {
-  @Input() parentGroup!: FormGroup;
-  @Output() refreshFormEvent: EventEmitter<FormGroup> = new EventEmitter;
+  @Output() refreshFormEvent: EventEmitter<string> = new EventEmitter();
 
+  email!: FormControl;
 
-  email!: FormControl
-  form!:FormGroup
+  constructor(
+    public authService: AuthService,
+    private sharedFormService: SharedFormService
+  ) {}
 
-  constructor(public authService: AuthService){}
+  ngOnInit() {
+    this.email = this.sharedFormService.sharedMailFormControl();
+  }
 
-  emitEvent(){
-    this.refreshFormEvent.emit(this.parentGroup);
+  emitEvent() {
+    this.refreshFormEvent.emit(this.email.value);
     this.authService.resetErrorCode();
   }
 
-
-  noMailAdress(){
-    return this.parentGroup.value.email === null || this.parentGroup.value.email === '';
+  noMailAdress() {
+    return this.email.value === null || this.email.value === '';
   }
-
 }
