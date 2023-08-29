@@ -68,12 +68,7 @@ describe('SignUpComponent', () => {
   });
 
   it('should call signUp function in auth service for a valid form', () => {
-    const emailControl = component.signUpForm.get('email');
-    const password1Control = component.signUpForm.get('password1');
-    const password2Control = component.signUpForm.get('password2');
-    emailControl?.patchValue(environment.guest.email);
-    password1Control?.patchValue(environment.guest.password);
-    password2Control?.patchValue(environment.guest.password);
+    patchValues();
     fixture.detectChanges();
     const authSpy = spyOn(authService, 'signUp');
     component.signUp();
@@ -101,4 +96,15 @@ describe('SignUpComponent', () => {
     expect(component.signUpForm.value.password1).toBe(password);
     expect(component.signUpForm.value.password2).toBe(password);
   });
+
+  function patchValues(){
+    const emailControl = component.signUpForm.get('email');
+    const password1Control = component.signUpForm.get('password1');
+    const password2Control = component.signUpForm.get('password2');
+    emailControl?.patchValue(environment.guest.email);
+    password1Control?.patchValue(environment.guest.password);
+    password2Control?.patchValue(environment.guest.password);
+  }
 });
+
+

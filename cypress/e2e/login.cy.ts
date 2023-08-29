@@ -1,10 +1,9 @@
-import {environment} from 'src/environments/environment'
+import { environment } from 'src/environments/environment';
+// import '../support/commands';
 
-it("should login valid user", () =>{
-    cy.visit("/");
-    cy.get('[data-testid="email"]').type(environment.guest.email);
-    cy.get('[data-testid="password"]').type(environment.guest.password);
-    cy.get('[data-testid="submitLoginForm"]').click();
-    cy.url().should('contain','/client');
-    cy.get('[data-testid="btnSignOut"]').click();
+it('should login valid user', () => {
+  cy.visit('/');
+  cy.login(environment.guest.email,environment.guest.password);
+  cy.url().should('contain', '/client');
+  cy.get('[data-testid="btnSignOut"]').click();
 });

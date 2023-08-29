@@ -2,6 +2,7 @@ it('should protect the client for unauthorized user', () => {
   cy.clearCookies();
   cy.clearLocalStorage();
   cy.clearAllSessionStorage();
+  sessionStorage.removeItem('token');
   // cy.clear();
   
 
