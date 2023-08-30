@@ -68,7 +68,7 @@ describe('SignUpComponent', () => {
   });
 
   it('should call signUp function in auth service for a valid form', () => {
-    patchValues();
+    patchFormValues();
     fixture.detectChanges();
     const authSpy = spyOn(authService, 'signUp');
     component.signUp();
@@ -78,32 +78,40 @@ describe('SignUpComponent', () => {
   it('should update signUpForm when child components emit changes', () => {
     const email = 'test@example.com';
     const password = 'testpassword';
-
-    const mailForm = fixture.debugElement.query(
-      (debugEl) => debugEl.name === 'app-mail-form'
-    );
+    const mailForm = getQuery('app-mail-form');
     mailForm.componentInstance.refreshFormEvent.emit(email);
-
-    const passwordForm = fixture.debugElement.queryAll(
-      (debugEl) => debugEl.name === 'app-password-form'
-    );
+    const passwordForm = getQueryAll('app-password-form');
     passwordForm[0].componentInstance.refreshFormEvent.emit(password);
     passwordForm[1].componentInstance.refreshFormEvent.emit(password);
-
     fixture.detectChanges();
-
-    expect(component.signUpForm.value.email).toBe(email);
-    expect(component.signUpForm.value.password1).toBe(password);
-    expect(component.signUpForm.value.password2).toBe(password);
+    expectEmittedValuesInForm(email, password);
   });
 
-  function patchValues(){
+  function patchFormValues(){
     const emailControl = component.signUpForm.get('email');
     const password1Control = component.signUpForm.get('password1');
     const password2Control = component.signUpForm.get('password2');
     emailControl?.patchValue(environment.guest.email);
     password1Control?.patchValue(environment.guest.password);
     password2Control?.patchValue(environment.guest.password);
+  }
+
+  function getQuery(item: string){
+    return fixture.debugElement.query(
+      (debugEl) => debugEl.name === item
+    );
+  }
+
+  function getQueryAll(item: string){
+    return fixture.debugElement.queryAll(
+      (debugEl) => debugEl.name === item
+    );
+  }
+
+  function expectEmittedValuesInForm(email: string, password: string){
+    expect(component.signUpForm.value.email).toBe(email);
+    expect(component.signUpForm.value.password1).toBe(password);
+    expect(component.signUpForm.value.password2).toBe(password);
   }
 });
 

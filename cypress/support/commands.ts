@@ -37,13 +37,13 @@
 // }
 
 declare namespace Cypress {
-    interface Chainable<Subject> {
-      login(email: string, password: string): Chainable<Subject>
-    }
+  interface Chainable<Subject> {
+    login(email: string, password: string): Chainable<Subject>;
   }
+}
 
-  Cypress.Commands.add('login', (email: string, password: string) => {
-    cy.get('[data-testid="email"]').type(email);
-    cy.get('[data-testid="password"]').type(password);
-    cy.get('[data-testid="submitLoginForm"]').click();
-  });
+Cypress.Commands.add('login', (email: string, password: string) => {
+  cy.get('[data-testid="email"]').type(email);
+  cy.get('[data-testid="password"]').type(password);
+  cy.get('[data-testid="submitLoginForm"]').click();
+});

@@ -1,19 +1,3 @@
-it('should protect the client for unauthorized user', () => {
-  cy.clearCookies();
-  cy.clearLocalStorage();
-  cy.clearAllSessionStorage();
-  sessionStorage.removeItem('token');
-  // cy.clear();
-  
-
-  // cy.visit('/client');
-
-  // cy.get('button').then((btn) => {
-  //   if (btn.hasClass('btn-sign-out')) {
-  //     cy.get('[data-testid="btnSignOut"]').click();
-  //   }
-  // });
-
-  cy.visit('/client');
-  cy.url().should('not.contain', '/client');
+it('should protect the client for unauthorized user by redirection', () => {
+   cy.visit('/client').url().should('not.contain', '/client');
 });

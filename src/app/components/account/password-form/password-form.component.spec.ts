@@ -9,8 +9,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { environment } from 'src/environments/environment';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-import { SharedFormService } from 'src/app/services/shared-form/shared-form.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DialogPwInfoComponent } from '../dialogs/dialog-pw-info/dialog-pw-info.component';
+import { By } from '@angular/platform-browser';
 
 describe('PasswordFormComponent', () => {
   let component: PasswordFormComponent;
@@ -28,16 +29,11 @@ describe('PasswordFormComponent', () => {
         MatDialogModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
-      ]
+      ],
     });
     fixture = TestBed.createComponent(PasswordFormComponent);
     component = fixture.componentInstance;
     component.fcName = 'password';
-    let sharedFormService = TestBed.inject(SharedFormService);
-    // component.parentGroup = new FormGroup({
-    //   email: sharedFormService.sharedMailFormControl(),
-    //   password: sharedFormService.sharedPasswordFormControl(),
-    // });
     fixture.detectChanges();
   });
 
@@ -55,5 +51,25 @@ describe('PasswordFormComponent', () => {
     component.hide = false;
     component.switchVisibility();
     expect(component.hide).toBe(true);
+  });
+
+  it('should open dialog when openDialog is called', () => {
+    const dialog = TestBed.inject(MatDialog);
+    const openDialogSpy = spyOn(dialog, 'open');
+    component.openDialog();
+    expect(openDialogSpy).toHaveBeenCalledWith(DialogPwInfoComponent, {
+      data: {
+        password: component.password.value,
+      },
+    });
+  });
+
+  it('should emit refreshFormEvent with correct value when input changes', () => {
+    const emitter = spyOn(component.refreshFormEvent, 'emit');
+    const input = fixture.debugElement.query(By.css(`[data-testid=${component.fcName}]`)).nativeElement;
+    const testValue = 'testPassword1!';
+    input.value = testValue;
+    input.dispatchEvent(new Event('input'));
+    expect(emitter).toHaveBeenCalledOnceWith(testValue);
   });
 });

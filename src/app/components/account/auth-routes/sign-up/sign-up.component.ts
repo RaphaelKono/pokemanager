@@ -28,11 +28,6 @@ export class SignUpComponent {
     );
   }
 
-  refreshForm($event: FormGroup) {
-    this.signUpForm = $event;
-    
-  }
-
   refreshEmail($event: string){
     this.signUpForm.patchValue({
       email: $event

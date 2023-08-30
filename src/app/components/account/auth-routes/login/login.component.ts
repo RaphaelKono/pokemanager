@@ -31,10 +31,6 @@ export class LoginComponent {
     );
   }
 
-  refreshForm($event: FormGroup) {
-    this.loginForm = $event;
-  }
-
   refreshEmail($event: string) {
     this.loginForm.patchValue({
       email: $event,
